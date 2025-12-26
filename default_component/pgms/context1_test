@@ -1,0 +1,26 @@
+#!/bin/bash
+
+total=0
+count=0
+
+# 执行 100 次测试
+for i in {1..100}; do
+    output=$(./context1 1 2>&1)
+
+    # 提取所有 COUNT 值
+    count_values=$(echo "$output" | grep "COUNT" | while IFS='|' read -r _ value _ _; do echo "$value"; done)
+
+    # 累加 COUNT 值
+    for value in $count_values; do
+        total=$((total + value))
+        count=$((count + 1))
+    done
+done
+
+# 计算平均值
+if [ "$count" -ne 0 ]; then
+    average=$((total / count))
+    echo "context1: Average COUNT value after 100 iterations: $average"
+else
+    echo "No valid results were collected."
+fi

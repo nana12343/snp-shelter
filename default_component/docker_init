@@ -1,0 +1,5 @@
+#!/bin/bash
+mount -t devtmpfs none /dev
+/bin/vguest_vsock
+# /usr/local/bin/python /app/test.py
+exec /bin/bash

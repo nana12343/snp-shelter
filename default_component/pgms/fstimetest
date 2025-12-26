@@ -1,0 +1,87 @@
+#!/bin/bash
+
+# 初始化变量
+write_total=0
+write_count=0
+read_total=0
+read_count=0
+copy_total=0
+copy_count=0
+
+# 执行 100 次测试
+for i in $(seq 1 100); do
+    output=$(./fstime 2>&1)
+
+    # 打印 output 以检查其内容
+    echo "Output of fstime: $output"
+
+    # 提取 Write 的 COUNT 值
+    write_value=""
+    while read -r line; do
+        if [[ "$line" == *"Write done"* ]]; then
+            # 提取 COUNT 行的中间数字
+            count_line=$(echo "$output" | grep "COUNT" | head -n 1)
+            IFS='|' read -r _ write_value _ _ <<< "$count_line"
+            break
+        fi
+    done <<< "$output"
+    
+    if [ -n "$write_value" ]; then
+        write_total=$((write_total + write_value))
+        write_count=$((write_count + 1))
+    fi
+
+    # 提取 Read 的 COUNT 值
+    read_value=""
+    while read -r line; do
+        if [[ "$line" == *"Read done"* ]]; then
+            # 提取 COUNT 行的中间数字
+            count_line=$(echo "$output" | grep "COUNT" | head -n 2 | tail -n 1)
+            IFS='|' read -r _ read_value _ _ <<< "$count_line"
+            break
+        fi
+    done <<< "$output"
+
+    if [ -n "$read_value" ]; then
+        read_total=$((read_total + read_value))
+        read_count=$((read_count + 1))
+    fi
+
+    # 提取 Copy 的 COUNT 值
+    copy_value=""
+    while read -r line; do
+        if [[ "$line" == *"Copy done"* ]]; then
+            # 提取 COUNT 行的中间数字
+            count_line=$(echo "$output" | grep "COUNT" | tail -n 1)
+            IFS='|' read -r _ copy_value _ _ <<< "$count_line"
+            break
+        fi
+    done <<< "$output"
+
+    if [ -n "$copy_value" ]; then
+        copy_total=$((copy_total + copy_value))
+        copy_count=$((copy_count + 1))
+    fi
+done
+
+# 计算平均值并输出
+if [ "$write_count" -ne 0 ]; then
+    write_average=$((write_total / write_count))
+    echo "Write: Average COUNT value after 100 iterations: $write_average"
+else
+    echo "No valid Write results were collected."
+fi
+
+if [ "$read_count" -ne 0 ]; then
+    read_average=$((read_total / read_count))
+    echo "Read: Average COUNT value after 100 iterations: $read_average"
+else
+    echo "No valid Read results were collected."
+fi
+
+if [ "$copy_count" -ne 0 ]; then
+    copy_average=$((copy_total / copy_count))
+    echo "Copy: Average COUNT value after 100 iterations: $copy_average"
+else
+    echo "No valid Copy results were collected."
+fi

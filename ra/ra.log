@@ -1,0 +1,19 @@
+PDH EP384 D256 76989047ead863919c9f421cbe0e0c4b004b12c0668eb819e2d73b4d24786532
+ [38;5;2m⬑[0m PEK EP384 E256 c7935177834c83e6fd06ee81164eddadfba5233fc0b78356b1c2775ca428fe9c
+   [38;5;2m•[0m[38;5;2m⬑[0m OCA EP384 E256 20151337e8474d32240802a3840001543f4523c139431dc8defb147077762c80
+    [38;5;2m⬑[0m CEK EP384 E256 59ee47057c13418f953e6c09e9e355bf8606229254b53257d234ba0dee9dd22e
+       [38;5;2m⬑[0m ASK R2048 R256 5dff2a2a4dd59dc095d73a26af28be523192ade830bdd35bacdd81ee75584c45
+         [38;5;2m•[0m[38;5;2m⬑[0m ARKfopen: No such file or directory
+bind succeed
+listen succeed
+
+ connect succeed
+• = self signed, ⬑ = signs, •̷ = invalid self sign, ⬑̸ = invalid signs
+fopen: No such file or directory
+bind succeed
+listen succeed
+
+ connect succeed
+Receive sev pdh succeed
+Command executed successfully with exit status: 0
+Command executed successfully with exit status: 0

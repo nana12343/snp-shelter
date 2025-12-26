@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+total=0
+count=0
+
+for i in $(seq 1 100); do
+    output=$(./arithoh 1 2>&1)
+
+    count_value=$(echo "$output" | awk -F'|' '{print $2}')
+
+    total=$(echo "$total + $count_value" | bc)
+    count=$((count + 1))
+done
+
+
+if [ "$count" -ne 0 ]; then
+    average=$(echo "scale=2; $total / $count" | bc)
+    echo "arithoh:Average COUNT value after 100 iterations: $average"
+else
+    echo "No valid results were collected."
+fi
+
+

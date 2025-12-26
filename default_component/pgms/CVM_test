@@ -1,0 +1,27 @@
+#!/bin/bash
+
+total=0
+count=0
+
+for i in {1..100}; do
+    output=$(./spawn 1 2>&1)
+
+    # 使用 Bash 字符串操作提取 COUNT 中的第二个数字
+    count_value=$(echo "$output" | grep "COUNT" | while IFS='|' read -r _ value _ _; do echo "$value"; done)
+
+    # 如果找到了 count_value，则添加到 total
+    if [ -n "$count_value" ]; then
+        # 直接进行整数加法运算
+        total=$((total + count_value))
+        count=$((count + 1))
+    fi
+done
+
+# 计算平均值并输出
+if [ "$count" -ne 0 ]; then
+    # 使用整数除法计算平均值
+    average=$((total / count))
+    echo "arithoh: Average COUNT value after 100 iterations: $average"
+else
+    echo "No valid results were collected."
+fi

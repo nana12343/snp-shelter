@@ -1,0 +1,45 @@
+#!/bin/sh
+
+echo "Running arithoh test..."
+./arithoh 1
+echo ""
+
+echo "Running context1 test..."
+./context1 1
+echo ""
+
+echo "Running dhry2 test..."
+./dhry2 1
+echo ""
+
+echo "Running dhry2reg test..."
+./dhry2reg 1
+echo ""
+
+echo "Running double test..."
+./double 1
+echo ""
+
+echo "Running float test..."
+./float 1
+echo ""
+
+echo "Running fstime test..."
+./fstime
+echo ""
+
+echo "Running pipe test..."
+./pipe 1
+echo ""
+
+echo "Running syscall test..."
+./syscall 1
+echo ""
+
+echo "Running spawn test..."
+./spawn 1
+echo ""
+
+echo "Running register test..."
+./register 1
+echo ""
